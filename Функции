@@ -1,0 +1,5 @@
+para.Range.Font.Bold = -1; //устанавливает текст жирным
+para.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;//выравнивание по центру
+para.Range.Font.Italic = -1;//устанавливает текст курсивом
+para.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;//выравнивание по левому
+para.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphRight;//выравнивание по правому
