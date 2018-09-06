@@ -12,6 +12,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 
 namespace TestDoc1._1
+
 {
     public partial class Form1 : Form
     {
@@ -22,6 +23,9 @@ namespace TestDoc1._1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            #region говно
+
+
             /*
 
             //var application = new Microsoft.Office.Interop.Word.Application();
@@ -109,9 +113,10 @@ namespace TestDoc1._1
 
 
                          */
-                         
+            #endregion
+
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
-                return;            
+                return;
             string filename = openFileDialog1.FileName;
 
 
@@ -119,14 +124,10 @@ namespace TestDoc1._1
             word_app.Visible = false;//отображение ворда во время работы кода
 
             var wordDoc = word_app.Documents.Open(filename);
-            try
-            {
-                wordDoc.SaveAs(@"D:\result3.docx");
-                MessageBox.Show("файл сохранен");
-            }
-            catch { MessageBox.Show("произошла ошибка"); }
 
+            SAVE(wordDoc, word_app);
         }
+            
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -137,30 +138,70 @@ namespace TestDoc1._1
             // Создаем документ Word.
             object missing = Type.Missing;
 
-            //var word_doc = word_app.Documents.Add(ref missing, ref missing, ref missing, ref missing);
             var word_doc = word_app.Documents.Add();
 
             // Создаем абзац заголовка.
-            Word.Paragraph para = word_doc.Paragraphs.Add(ref missing);
-            //para.Range.Text = "Кривая хризантемы";
-            //object style_name = "Заголовок 1";
-            //para.Range.set_Style(ref style_name);
-            //para.Range.InsertParagraphAfter();
+            var para = word_doc.Paragraphs.Add(ref missing);
 
-            // Добавить текст.
-            para.Range.Text = richTextBox1.Text;
-            //para.Range.InsertParagraphAfter();
+            object style_name = "Заголовок 1";
+            para.Range.set_Style(ref style_name);
+            para.Range.Text += "Кривая хризантемы";
+            para.Range.InsertParagraphAfter();
 
+
+            para.Range.Font.Size = 13;      
+            para.Range.Font.Bold = -1;
+            
+
+            para.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+            para.Range.Text += richTextBox1.Text;
+            para.Range.InsertParagraphAfter();
+
+            para.Range.Font.Italic = -1;
+            para.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+            para.Range.Text += richTextBox1.Text;
+            para.Range.InsertParagraphAfter();
+
+
+
+            para.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphRight;
+            para.Range.Text += richTextBox1.Text;
+            para.Range.InsertParagraphAfter();
+
+
+            SAVE(word_doc, word_app);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
+        }
+
+
+        private void SAVE(Word.Document word_doc, Word.Application word_app)
+        {
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
             string filename = saveFileDialog1.FileName;
-
             try
             {
                 word_doc.SaveAs(filename);
                 MessageBox.Show("файл сохранен");
+                word_app.Visible = true;
             }
             catch { MessageBox.Show("произошла ошибка"); }
         }
+
+        
     }
 }
