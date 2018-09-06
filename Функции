@@ -8,5 +8,3 @@ para.Range.Font.Italic = -1;//устанавливает текст курсив
 para.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;//выравнивание по левому
 para.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphRight;//выравнивание по правому
 
-
-используемая библиотека: using Word = Microsoft.Office.Interop.Word;
